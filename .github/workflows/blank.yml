@@ -24,4 +24,4 @@ jobs:
 
     - uses: ./hello-decathlon
       with:
-        TEST_VAR: "My var value here"
+        TEST_VAR: "Capgemini"
