@@ -1,0 +1,24 @@
+name: Bump version
+description: bump version from version file.
+author: Sebastien
+branding:
+  icon: 'list'
+  color: 'yellow'
+inputs:
+  path:
+    description: 'The path to version file to read'
+    required: true
+    default: "./VERSION"
+  step:
+    description: ''
+    required: true
+    default: "patch"
+outputs:
+  value:
+    description: 'The value of the given property'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.path }}
+    - ${{ inputs.step }}
