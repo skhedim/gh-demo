@@ -12,6 +12,5 @@ USER node
 RUN npm install --only=prod
 
 COPY --chown=node:node index.js .
-COPY --chown=node:node lib ./lib/
 
 CMD [ "node", "index.js"]
