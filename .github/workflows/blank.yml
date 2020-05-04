@@ -2,7 +2,6 @@ name: Hello
 
 on: [ push ]
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,4 +11,4 @@ jobs:
 
     - uses: ./hello-decathlon
       with:
-        TEST_VAR: "Capgemini"
+        TEST_VAR: ${{ secrets.TOTO }}
