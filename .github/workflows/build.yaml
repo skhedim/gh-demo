@@ -1,5 +1,4 @@
 name: npm build, lint, test and publish
-
 on: push
 
 jobs:
