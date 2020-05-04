@@ -22,9 +22,6 @@ jobs:
       - name: npm test  
         run: npm test
       
-      - name: npm lint
-        run: npm lint
-      
       - name: get new version
         id: new_version
         uses: ./bump-version
