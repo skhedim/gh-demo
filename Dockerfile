@@ -1,12 +1,17 @@
-FROM node:10.16.0-alpine
+FROM node:12-alpine 
 
-WORKDIR /source/gh-demo
+EXPOSE 8181
 
-COPY package.json /source/gh-demo
+RUN mkdir /home/node/app/ && chown -R node:node /home/node/app
+WORKDIR /home/node/app
 
-RUN cd /source/gh-demo && npm i --only=production
+COPY --chown=node:node package*.json ./
 
-COPY . .
+USER node
 
-EXPOSE 3000
-CMD ["sh", "-c", "node server.js"]
+RUN npm install --only=prod
+
+COPY --chown=node:node index.js .
+COPY --chown=node:node lib ./lib/
+
+CMD [ "node", "index.js"]
