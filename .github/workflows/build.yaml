@@ -11,25 +11,31 @@ jobs:
       - name: checkout
         uses: actions/checkout@master
       
-      - name: npm install
-        uses: actions/npm@master
+      - name: Setup node
+        uses: actions/setup-node@v1
         with:
-          args: install
+          node-version: 10
       
-      - name: npm test
-        uses: actions/npm@master
-        with:
-          args: run test
+      - name: npm install
+        run: npm install
+
+      - name: npm test  
+        run: npm test
       
       - name: npm lint
-        uses: actions/npm@master
+        run: npm lint
+      
+      - name: get new version
+        id: new_version
+        uses: ./bump-version
         with:
-          args: run lint
+          path: './VERSION'
+          step: 'patch'
       
       - name: docker build
         uses: actions/docker/cli@master
         with:
-          args: build -t sebkhedim/hello-world-js:${{ steps.read_property.outputs.value }} .
+          args: build -t sebkhedim/hello-world-js:${{ steps.new_version.outputs.value }} .
       
       - name: docker login
         uses: actions/docker/login@master
@@ -40,4 +46,4 @@ jobs:
       - name: docker push
         uses: actions/docker/cli@master
         with:
-          args: push sebkhedim/hello-world-js:${{ steps.read_property.outputs.value }}
+          args: push sebkhedim/hello-world-js:${{ steps.new_version.outputs.value }}
